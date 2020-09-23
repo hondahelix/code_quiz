@@ -11,7 +11,12 @@ var b = [document.querySelector("#button-1"),
     ];
 var answer = document.querySelector("#correctAnswer");
 
-var endscreen = document.querySelector("#endscreen");
+var endScreen = document.querySelector("#endscreen");
+
+var time = document.querySelector(".navbar-text");
+var counter=0;
+timer =60;
+var interval;
 console.log(b);
 
 var questions = [
@@ -29,11 +34,7 @@ var questions = [
 
 //hides screens
 function hidescreen(screen) {
-    if (screen.style.display === "none") {
-      screen.style.display = "block";
-    } else {
       screen.style.display = "none";
-    }
   }
 
 function setQandA(QsetIndex){
@@ -49,31 +50,43 @@ function setQandA(QsetIndex){
 function checkIfAnswer(objButton){
     for(var i=0; i<questions.length;i++){
         setQandA(i);
-        if(objButton.value==questions[i].answer){
+        if(objButton.value==questions[i].answer && timer!==0){
             //console.log("rigth");
             answer.textContent = "Right";
         }
-        else if(objButton.value!==questions[i].answer){
+        else if(objButton.value!==questions[i].answer && timer!==0){
             //console.log("wrong");
+            //for some reson it double clicks so -5 is doubled so -10
+            timer = timer-5;
+            time.value=timer;
             answer.textContent = "Wrong";
         }
     }
 }
 
-
-
+function startTimer(event) {
+    event.preventDefault();
+    console.log("you hit play");
+    interval= setInterval(function(){
+        if(timer==0){
+            clearInterval(interval);
+            hidescreen(questionScreen);
+            endScreen.style.display = "block";
+        }
+        else{
+            timer--;
+            time.value=timer;
+            time.textContent = time.value;
+            console.log("timer is working");
+        }
+    },1000);
+  }
+startButton.addEventListener("click", startTimer);
 startButton.addEventListener("click", function() {
-    
     hidescreen(startScreen);
     questionScreen.style.display = "block";
 });
-// questionScreen.addEventListener("click", function() {
-//     //hidescreen(questionScreenn);
-// });
-endscreen.addEventListener("click", function() {
-    hidescreen(endscreen);
-});
-//getIdOfButton();
+//I think this is causing a double click but cant get buttonObj if null
 setQandA(0);
 console.log(b[0].value);
 console.log("connected");
