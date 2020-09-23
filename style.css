@@ -1,3 +1,10 @@
 #navbarText{
     align-content: right;
 }
+
+.start{
+    display: block;
+}
+.hide{
+    display: none;
+}
