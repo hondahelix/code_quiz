@@ -1,14 +1,21 @@
 // add hooks here
 var startScreen = document.querySelector("#startscreen");
 var startButton = document.querySelector("#start-game");
+
 var questionScreen = document.querySelector("#questions");
+var Quizquestion = document.querySelector("#question-title");
+var b = [document.querySelector("#button-1"),
+        document.querySelector("#button-2"),
+        document.querySelector("#button-3"),
+        document.querySelector("#button-4"),];
+
 var endscreen = document.querySelector("#endscreen");
-console.log(startScreen.button);
+console.log(b);
 
 var questions = [
     {
         title:"what is my name?",
-        choices: ["","","Faran",""],
+        choices: ["Jon","Bob","Faran","Joe"],
         answer: "Faran"
     },
 ];
@@ -22,7 +29,19 @@ function hidescreen(screen) {
     }
   }
 
+function setQandA(QsetIndex){
+    Quizquestion.textContent = questions[QsetIndex].title
+    var c = questions[QsetIndex].choices;
+    for(var i =0; i<c.length;i++){
+        b[i].value=c[i];
+        b[i].textContent=c[i];
+        console.log(b[i].value);
+    }
+}
 
+function checkIfRight(){
+    
+}
 
 
 startButton.addEventListener("click", function() {
@@ -35,5 +54,8 @@ questionScreen.addEventListener("click", function() {
 endscreen.addEventListener("click", function() {
     hidescreen(endscreen);
 });
+
+setQandA(0)
+console.log(b[0].value);
 
 console.log("connected");
