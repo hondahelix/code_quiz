@@ -23,18 +23,22 @@
 
     <div id = "startscreen" class = "start">
         <h1>Coding quiz challenge</h1>
-        <p>explain game</p>
+        <p>Try to answer the following code-related questions within the time 
+            limit. Keep in mind the incorrect answers will penalize your scoretime 
+            by ten seconds. You will have one min. Good luck!!
+        </p>
         <button id = "start-game">Start!</button>
     </div>
 
     <div id = "questions" class="hide">
         <h2 id = "question-title"></h2>
         <div id = "choices">
-            <button id = "button-1"></button>
-            <button id = "button-2"></button>
-            <button id = "button-3"></button>
-            <button id = "button-4"></button>
+            <button id = "button-1" onclick='checkIfAnswer(this)'></button>
+            <button id = "button-2" onclick='checkIfAnswer(this)'></button>
+            <button id = "button-3" onclick='checkIfAnswer(this)'></button>
+            <button id = "button-4" onclick='checkIfAnswer(this)'></button>
         </div>
+        <div id = "correctAnswer"><hr></div>
     </div>
 
     <div id = "endscreen" class="hide">
