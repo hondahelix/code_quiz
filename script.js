@@ -14,10 +14,10 @@ var answer = document.querySelector("#correctAnswer");
 var endScreen = document.querySelector("#endscreen");
 
 var time = document.querySelector(".navbar-text");
-var counter=0;
-timer =60;
+var RightAnswercounter=0;
+var timer =60;
 var interval;
-
+var current = 0;
 var questions = [
     {
         title:"what is my name?",
@@ -28,26 +28,38 @@ var questions = [
         title:"yoyoyo",
         choices: ["a","e","z","o"],
         answer: "z"
-    }
+    },
+    {
+        title:"why is this so difficult",
+        choices: ["new","tired","hungry","stressed"],
+        answer: "tired"
+    },
 
 ];
-setQandA(0);
+//setQandA(0);
 //hides screens
 function hidescreen(screen) {
       screen.style.display = "none";
   }
 
 function setQandA(QsetIndex){
-    Quizquestion.textContent = questions[QsetIndex].title;
-    var c = questions[QsetIndex].choices;
-    for(var i =0; i<c.length;i++){
-        b[i].value=c[i];
-        //console.log(b[i].value=c[i]);
-        b[i].textContent=c[i];
-        //console.log(b[i].value);
+    if (QsetIndex<questions.length){
+        Quizquestion.textContent = questions[QsetIndex].title;
+        var c = questions[QsetIndex].choices;
+        for(var i =0; i<c.length;i++){
+            b[i].value=c[i];
+            //console.log(b[i].value=c[i]);
+            b[i].textContent=c[i];
+            console.log(b[i].value);
+        }
+    }
+    else{
+        hidescreen(questionScreen);
+        time.textContent =0;
+        endScreen.style.display = "block";
     }
     //maybe return array that I need if its only relative
-    return ;
+    return b;
 }
 
 function answerchecker(){
@@ -56,57 +68,32 @@ function answerchecker(){
     }
 }
 //the problem child
+//maybe add event listner to each button?
+//got to work by having current index of answer as a global not a for loop
 function reply_click(objButton){
-    for(var i=0; i<questions.length;i++){
-        setQandA(i);
+        setQandA(current);
+        console.log("----------");
+        console.log(b[0].value);
+        console.log("----------");
         //------------------
-        console.log(i);
-        if(objButton.value==questions[i].answer && timer!==0){
-            //console.log("rigth");
+        //console.log(i);
+        if(objButton.value==questions[current].answer && timer!==0){
+            console.log("rigth");
             answer.textContent = "Right";
+            current++;
         }
-        else if(objButton.value!==questions[i].answer && timer!==0){
-            //console.log("wrong");
+        else if(objButton.value!==questions[current].answer && timer!==0){
+            console.log("wrong");
             //for some reson it double clicks so -5 is doubled so -10
-            timer = timer-5;
+            //doing this ceacuse runs through every time for every thing in problems object
+            timer = timer-10;
             time.value=timer;
             time.textContent=timer;
+            console.log(timer);
             answer.textContent = "Wrong";
+            current++;
         }
-    }
 }
-// function reply_click(clicked_id){
-//     for(var questionStuff=0; questionStuff<questions.length;questionStuff++){
-//             //setQandA(questionStuff);
-//         Quizquestion.textContent = questions[questionStuff].title
-//         var c = questions[questionStuff].choices;
-//         for(var i =0; i<c.length;i++){
-//             b[i].value=c[i];
-//              //console.log(b[i].value=c[i]);
-//             b[i].textContent=c[i];
-//             var s = JSON.stringify(clicked_id)
-//             console.log(s);
-//             if(s=="button-1"&& questions[questionStuff].choices[0]==questions[questionStuff].answer && timer!==0){
-//                 answer.textContent = "Right";
-//             }
-//             if(s=="button-2"&& questions[questionStuff].choices[1]==questions[questionStuff].answer && timer!==0){
-//                 answer.textContent = "Right";
-//             }
-//             if(s=="button-3"&& questions[questionStuff].choices[2]==questions[questionStuff].answer && timer!==0){
-//                 answer.textContent = "Right";
-//             }
-//             if(s=="button-4"&& questions[questionStuff].choices[3]==questions[questionStuff].answer && timer!==0){
-//                 answer.textContent = "Right";
-//             }
-//             else{
-//                 timer = timer-5;
-//                 time.value=timer;
-//                 time.textContent=timer;
-//                 answer.textContent = "Wrong";
-//             }
-//         }
-//     }
-// }
 
 
 function startTimer(event) {
@@ -123,10 +110,11 @@ function startTimer(event) {
             timer--;
             time.value=timer;
             time.textContent = time.value;
-            console.log("timer is working");
+            console.log(timer);
         }
     },1000);
   }
+
 
 
 startButton.addEventListener("click", startTimer);
@@ -135,6 +123,6 @@ startButton.addEventListener("click", function() {
     questionScreen.style.display = "block";
 });
 //I think this is causing a double click but cant get buttonObj if null
-setQandA(0);
-console.log(b[0].value);
+setQandA(current);
+//console.log(b[0].value);
 console.log("connected");
