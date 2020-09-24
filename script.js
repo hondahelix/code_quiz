@@ -1,7 +1,8 @@
 // add hooks here
+//startscreen hooks
 var startScreen = document.querySelector("#startscreen");
 var startButton = document.querySelector("#start-game");
-
+//question hooks
 var questionScreen = document.querySelector("#questions");
 var Quizquestion = document.querySelector("#question-title");
 var b = [document.querySelector("#button-1"),
@@ -9,10 +10,11 @@ var b = [document.querySelector("#button-1"),
         document.querySelector("#button-3"),
         document.querySelector("#button-4")
     ];
+var allQButtons = document.querySelector("#choices");
 var answer = document.querySelector("#correctAnswer");
-
+//end screen hooks
 var endScreen = document.querySelector("#endscreen");
-
+//global variables 
 var time = document.querySelector(".navbar-text");
 var RightAnswercounter=0;
 var timer =60;
@@ -27,7 +29,7 @@ var questions = [
     {
         title:"yoyoyo",
         choices: ["a","e","z","o"],
-        answer: "z"
+        answer: "a"
     },
     {
         title:"why is this so difficult",
@@ -36,14 +38,15 @@ var questions = [
     },
 
 ];
-//setQandA(0);
+
 //hides screens
 function hidescreen(screen) {
       screen.style.display = "none";
-  }
-
+}
+//sets the values of the buttons
 function setQandA(QsetIndex){
     if (QsetIndex<questions.length){
+        Quizquestion.value = questions[QsetIndex].title;
         Quizquestion.textContent = questions[QsetIndex].title;
         var c = questions[QsetIndex].choices;
         for(var i =0; i<c.length;i++){
@@ -53,50 +56,39 @@ function setQandA(QsetIndex){
             console.log(b[i].value);
         }
     }
+    //if end of questions goes to endscreen
     else{
         hidescreen(questionScreen);
         time.textContent =0;
         endScreen.style.display = "block";
     }
     //maybe return array that I need if its only relative
-    return b;
 }
 
-function answerchecker(){
-    for(var i=0; i<questions.length;i++){
-        checkIfAnswer(objButton,i)
-    }
-}
 //the problem child
-//maybe add event listner to each button?
-//got to work by having current index of answer as a global not a for loop
-function reply_click(objButton){
-        setQandA(current);
-        console.log("----------");
-        console.log(b[0].value);
-        console.log("----------");
-        //------------------
-        //console.log(i);
-        if(objButton.value==questions[current].answer && timer!==0){
-            console.log("rigth");
-            answer.textContent = "Right";
-            current++;
-        }
-        else if(objButton.value!==questions[current].answer && timer!==0){
-            console.log("wrong");
-            //for some reson it double clicks so -5 is doubled so -10
-            //doing this ceacuse runs through every time for every thing in problems object
-            timer = timer-10;
-            time.value=timer;
-            time.textContent=timer;
-            console.log(timer);
-            answer.textContent = "Wrong";
-            current++;
-        }
+// got it to work by adding a event listener to each button
+//checks to see if right answer
+function runIt(){
+    console.log("----------");
+    console.log(this);
+    console.log("----------");
+    if(this.value==questions[current].answer && timer!==0){
+        console.log("right");
+        answer.textContent = "Right";
+        current++;
+    }
+    else if(this.value!==questions[current].answer && timer!==0){
+        console.log("wrong");
+        timer = timer-10;
+        time.value=timer;
+        time.textContent=timer;
+        //console.log(timer);
+        answer.textContent = "Wrong";
+        current++;
+    } 
 }
-
-
-function startTimer(event) {
+//timer
+function startTimer(event){
     event.preventDefault();
     console.log("you hit play");
     interval= setInterval(function(){
@@ -113,16 +105,26 @@ function startTimer(event) {
             console.log(timer);
         }
     },1000);
-  }
-
-
-
+}
+//event listeners 
 startButton.addEventListener("click", startTimer);
 startButton.addEventListener("click", function() {
     hidescreen(startScreen);
     questionScreen.style.display = "block";
 });
-//I think this is causing a double click but cant get buttonObj if null
-setQandA(current);
-//console.log(b[0].value);
-console.log("connected");
+startButton.addEventListener("click", function() {
+    setQandA(current);
+    hidescreen(startScreen);
+    questionScreen.style.display = "block";
+});
+//at first had a check directly on the buttons on the html
+//but got messed up now it works better but has a lot of event listeners 
+allQButtons.addEventListener("click", function() {
+    setQandA(current);
+});
+b[0].addEventListener("click", runIt); 
+b[1].addEventListener("click", runIt);
+b[2].addEventListener("click", runIt);
+b[3].addEventListener("click", runIt);
+
+//console.log("connected");
