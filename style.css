@@ -8,3 +8,13 @@
 .hide{
     display: none;
 }
+body{
+    margin: auto;
+    width: 70%;
+    /*border: 3px solid aqua;*/
+    padding: 10px;
+}
+button{
+    background-color: aqua;
+    color: black;
+}
