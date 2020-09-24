@@ -118,7 +118,10 @@ function save(){
     var initials="";
     initials = document.getElementById("initials").value;
     console.log(initials);
-    
+    localStorage.setItem("initials",initials);
+    localStorage.setItem("score",score);
+    window.location.href = "highscores.html";
+
 }
 //event listeners 
 startButton.addEventListener("click", startTimer);
