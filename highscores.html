@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css"/>
+    <title>Highscores</title>
+</head>
+<body>
+    <h1>Highscores</h1>
+    <div id = "highscore"></div>
+    <hr>
+    <button onclick="goBack()">Go Back</button>
+
+<script type="text/javascript">
+    //I could have done this is script.js but it would have been so messy
+    //I do not know what is better practice 
+    var scoreHook = document.querySelector("#highscore");
+    function goBack(){
+        window.location.href = "index.html";
+    }
+    function renderhighscore() {
+        var initials = localStorage.getItem("initials");
+        var score = localStorage.getItem("score");
+        if(initials ==null || score ==null){
+            return;
+        }
+        else {
+            scoreHook.textContent = initials +" - "+score; 
+        }
+    }
+    renderhighscore();
+</script>
+</body>
+</html>
