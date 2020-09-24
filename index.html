@@ -23,9 +23,11 @@
 
     <div id = "startscreen" class = "start">
         <h1>Coding quiz challenge</h1>
-        <p>Try to answer the following code-related questions within the time 
+        <p>
+            Try to answer the following code-related questions within the time 
             limit. Keep in mind the incorrect answers will penalize your scoretime 
-            by ten seconds. You will have one min. Good luck!!
+            by ten seconds. The final score will be the remaining time + 5 points for every answers correct.
+            You will have one min. Good luck!!
         </p>
         <button id = "start-game">Start!</button>
     </div>
@@ -38,13 +40,15 @@
             <button id = "button-3" ></button>
             <button id = "button-4" ></button>
         </div>
-        <div id = "correctAnswer"><hr></div>
+        <hr>
+        <div id = "correctAnswer"></div>
     </div>
 
     <div id = "endscreen" class="hide">
         <h2>All Done!</h2>
         <div id = "finalscore"></div>
-        <!--<form action=""></form>-->
+        <input id="initials">
+        <button type="button" onclick="save()">Submit</button>
     </div>
 
 

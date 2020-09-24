@@ -14,9 +14,10 @@ var allQButtons = document.querySelector("#choices");
 var answer = document.querySelector("#correctAnswer");
 //end screen hooks
 var endScreen = document.querySelector("#endscreen");
+var finalScore = document.querySelector("#finalscore");
 //global variables 
 var time = document.querySelector(".navbar-text");
-var RightAnswercounter=0;
+var score=0;
 var timer =60;
 var interval;
 var current = 0;
@@ -59,10 +60,11 @@ function setQandA(QsetIndex){
     //if end of questions goes to endscreen
     else{
         hidescreen(questionScreen);
-        time.textContent =0;
+        score= score+timer;
+        finalpage();
+        timer =0;
         endScreen.style.display = "block";
     }
-    //maybe return array that I need if its only relative
 }
 
 //the problem child
@@ -75,6 +77,7 @@ function runIt(){
     if(this.value==questions[current].answer && timer!==0){
         console.log("right");
         answer.textContent = "Right";
+        score = score+5;
         current++;
     }
     else if(this.value!==questions[current].answer && timer!==0){
@@ -97,6 +100,7 @@ function startTimer(event){
             time.textContent=0;
             hidescreen(questionScreen);
             endScreen.style.display = "block";
+            finalpage();
         }
         else{
             timer--;
@@ -105,6 +109,16 @@ function startTimer(event){
             console.log(timer);
         }
     },1000);
+}
+function finalpage(){
+    finalScore.value= score;
+    finalScore.textContent="Your score is " + score +"!!!";
+}
+function save(){
+    var initials="";
+    initials = document.getElementById("initials").value;
+    console.log(initials);
+    
 }
 //event listeners 
 startButton.addEventListener("click", startTimer);
