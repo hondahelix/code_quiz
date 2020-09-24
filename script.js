@@ -23,19 +23,29 @@ var interval;
 var current = 0;
 var questions = [
     {
-        title:"what is my name?",
-        choices: ["Jon","Bob","Faran","Joe"],
-        answer: "Faran"
+        title:"What is a possible value of a boolean?",
+        choices: ["number","true","string","null"],
+        answer: "true"
     },
     {
-        title:"yoyoyo",
-        choices: ["a","e","z","o"],
-        answer: "a"
+        title:"How do you declare a variable in JS?",
+        choices: ["int","class","float","var"],
+        answer: "var"
     },
     {
-        title:"why is this so difficult",
-        choices: ["new","tired","hungry","stressed"],
-        answer: "tired"
+        title:"What method breaks a string into a array?",
+        choices: ["split()","toString()","hungry()","cut()"],
+        answer: "split()"
+    },
+    {
+        title:"What is not a loop that JavaScript supports?",
+        choices: ["for","circle","while","for/in"],
+        answer: "circle"
+    },
+    {
+        title:"What car brand is my last name?",
+        choices: ["Toyota","Suzuki","Mitsubishi","Honda"],
+        answer: "Honda"
     },
 
 ];
